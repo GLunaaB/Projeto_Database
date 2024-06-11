@@ -1,0 +1,97 @@
+"Qual o cliente que mais fez pedidos por ano?"
+
+SELECT 
+    a.num_ano,
+    c.id_cliente,
+    c.nome_cliente,
+    COUNT(p.id_pedido) AS total_pedidos
+FROM 
+    ft_pedido p
+JOIN 
+    dim_cliente c ON p.id_cliente = c.id_cliente
+JOIN 
+    dim_ano a ON p.id_ano = a.id_ano
+GROUP BY 
+    a.num_ano, c.id_cliente, c.nome_cliente
+ORDER BY 
+    a.num_ano, total_pedidos DESC;
+
+
+ "Qual o cliente que mais gastou em todos os anos?"
+
+SELECT 
+    c.id_cliente,
+    c.nome_cliente,
+    SUM(CAST(REPLACE(d.preco_prato, ',', '.') AS DECIMAL(10, 2))) AS total_gasto
+FROM 
+    ft_pedido p
+JOIN 
+    dim_cliente c ON p.id_cliente = c.id_cliente
+JOIN 
+    dim_prato d ON p.id_prato = d.id_prato
+GROUP BY 
+    c.id_cliente, c.nome_cliente
+ORDER BY 
+    total_gasto DESC;
+
+
+"Qual(is) o(s) cliente(s) que trouxe(ram) mais pessoas por ano?"
+
+SELECT 
+    a.num_ano,
+    c.id_cliente,
+    c.nome_cliente,
+    COUNT(b.id_beneficiario) AS total_pessoas_trazidas
+FROM 
+    dim_beneficio b
+JOIN 
+    dim_cliente c ON b.id_cliente = c.id_cliente
+JOIN 
+    ft_pedido p ON p.id_cliente = c.id_cliente
+JOIN 
+    dim_ano a ON p.id_ano = a.id_ano
+GROUP BY 
+    a.num_ano, c.id_cliente, c.nome_cliente
+ORDER BY 
+    a.num_ano, total_pessoas_trazidas DESC;
+
+
+"Qual a empresa que tem mais funcionários como clientes do restaurante?"
+
+SELECT 
+    e.id_empresa,
+    e.nome_empresa,
+    COUNT(DISTINCT b.id_cliente) AS total_funcionarios_clientes
+FROM 
+    dim_beneficio b
+JOIN 
+    dim_empresa e ON b.id_empresa = e.id_empresa
+GROUP BY 
+    e.id_empresa, e.nome_empresa
+ORDER BY 
+    total_funcionarios_clientes DESC;
+
+
+"Qual empresa que tem mais funcionários que consomem sobremesas no restaurante por ano?"
+
+SELECT 
+    a.num_ano,
+    e.id_empresa,
+    e.nome_empresa,
+    COUNT(DISTINCT b.id_cliente) AS total_funcionarios_sobremesas
+FROM 
+    ft_pedido p
+JOIN 
+    dim_prato d ON p.id_prato = d.id_prato
+JOIN 
+    dim_beneficio b ON p.id_cliente = b.id_cliente
+JOIN 
+    dim_empresa e ON b.id_empresa = e.id_empresa
+JOIN 
+    dim_ano a ON p.id_ano = a.id_ano
+WHERE 
+    d.nome_prato LIKE '%sobremesa%'  -- Supondo que sobremesas contenham a palavra 'sobremesa' no nome
+GROUP BY 
+    a.num_ano, e.id_empresa, e.nome_empresa
+ORDER BY 
+    a.num_ano, total_funcionarios_sobremesas DESC;

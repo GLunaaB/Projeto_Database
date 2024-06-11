@@ -1,0 +1,105 @@
+-- Inserções na Tabela dim_empresa
+INSERT INTO dim_empresa (id_empresa, nome_empresa) VALUES
+(1, 'Empresa Um'),
+(2, 'Empresa Dois'),
+(3, 'Empresa Três'),
+(4, 'Empresa Quatro'),
+(5, 'Empresa Cinco');
+
+-- Inserções na Tabela dim_mesa
+INSERT INTO dim_mesa (id_mesa, hora_entrada, hora_saida, prato_pedido, quant_pedidos) VALUES
+(1, 1200, 1300, 'Spaghetti Carbonara', 3),
+(2, 1230, 1330, 'Caesar Salad', 2),
+(3, 1300, 1400, 'Grilled Chicken', 1),
+(4, 1400, 1500, 'Margherita Pizza', 4),
+(5, 1500, 1600, 'Tiramisu', 2);
+
+-- Inserções na Tabela dim_mes
+INSERT INTO dim_mes (id_mes, num_mes) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12);
+
+-- Inserções na Tabela dim_ano
+INSERT INTO dim_ano (id_ano, num_ano) VALUES
+(1, 2020),
+(2, 2021),
+(3, 2022),
+(4, 2023),
+(5, 2024);
+
+
+
+-- Inserções na Tabela dim_dia
+INSERT INTO dim_dia (id_dia, num_dia) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21),
+(22, 22),
+(23, 23),
+(24, 24),
+(25, 25),
+(26, 26),
+(27, 27),
+(28, 28),
+(29, 29),
+(30, 30),
+(31, 31);
+
+-- Inserções na Tabela dim_prato
+INSERT INTO dim_prato (id_prato, preco_prato, nome_prato, id_mesa) VALUES
+(1, '12.00', 'Spaghetti Carbonara', 1),
+(2, '8.50', 'Caesar Salad', 2),
+(3, '15.00', 'Grilled Chicken', 3),
+(4, '10.00', 'Margherita Pizza', 4),
+(5, '6.00', 'Tiramisu', 5);
+
+-- Inserções na Tabela dim_cliente
+INSERT INTO dim_cliente (id_cliente, email_cliente, tel_cliente, cpf_cliente, nome_cliente, id_mesa) VALUES
+(1, 'cliente1@example.com', '11999999999', '11111111111', 'Cliente Um', 1),
+(2, 'cliente2@example.com', '11999999998', '22222222222', 'Cliente Dois', 2),
+(3, 'cliente3@example.com', '11999999997', '33333333333', 'Cliente Três', 3),
+(4, 'cliente4@example.com', '11999999996', '44444444444', 'Cliente Quatro', 4),
+(5, 'cliente5@example.com', '11999999995', '55555555555', 'Cliente Cinco', 5);
+
+-- Inserções na Tabela dim_beneficio
+INSERT INTO dim_beneficio (id_beneficiario, tel_beneficiario, nome_beneficiario, id_cliente, id_empresa) VALUES
+(1, '11988888888', 'Beneficiario Um', 1, 1),
+(2, '11988888887', 'Beneficiario Dois', 2, 2),
+(3, '11988888886', 'Beneficiario Três', 3, 3),
+(4, '11988888885', 'Beneficiario Quatro', 4, 4),
+(5, '11988888884', 'Beneficiario Cinco', 5, 5);
+
+INSERT INTO ft_pedido (id_pedido, id_prato, id_mesa, id_cliente, id_dia, id_mes, id_ano) VALUES
+(1, 1, 1, 1, 1, 1, 1),
+(2, 2, 2, 2, 2, 2, 2),
+(3, 3, 3, 3, 3, 3, 3),
+(4, 4, 4, 4, 4, 4, 4),
+(5, 5, 5, 5, 5, 5, 5);

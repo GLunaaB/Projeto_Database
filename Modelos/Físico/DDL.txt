@@ -1,0 +1,71 @@
+CREATE TABLE ft_pedido (
+    id_pedido INT PRIMARY KEY UNIQUE,
+    id_prato INT,
+    id_mesa INT,
+    id_cliente INT,
+    id_dia INT,
+    id_mes INT,
+    id_ano INT,
+    CONSTRAINT FK_ft_pedido_prato FOREIGN KEY (id_prato) REFERENCES dim_prato(id_prato),
+    CONSTRAINT FK_ft_pedido_mesa FOREIGN KEY (id_mesa) REFERENCES dim_mesa(id_mesa),
+    CONSTRAINT FK_ft_pedido_cliente FOREIGN KEY (id_cliente) REFERENCES dim_cliente(id_cliente),
+    CONSTRAINT FK_ft_pedido_dia FOREIGN KEY (id_dia) REFERENCES dim_dia(id_dia),
+    CONSTRAINT FK_ft_pedido_mes FOREIGN KEY (id_mes) REFERENCES dim_mes(id_mes),
+    CONSTRAINT FK_ft_pedido_ano FOREIGN KEY (id_ano) REFERENCES dim_ano(id_ano)
+);
+
+CREATE TABLE dim_mesa (
+    id_mesa INT PRIMARY KEY UNIQUE,
+    hora_entrada INT,
+    hora_saida INT,
+    prato_pedido VARCHAR(55),
+    quant_pedidos INT
+);
+
+CREATE TABLE dim_mes (
+    id_mes INT PRIMARY KEY UNIQUE,
+    num_mes INT
+);
+
+CREATE TABLE dim_ano (
+    id_ano INT PRIMARY KEY UNIQUE,
+    num_ano INT
+);
+
+CREATE TABLE dim_dia (
+    id_dia INT PRIMARY KEY UNIQUE,
+    num_dia INT
+);
+
+CREATE TABLE dim_prato (
+    id_prato INT PRIMARY KEY UNIQUE,
+    preco_prato VARCHAR(6),
+    nome_prato VARCHAR(55),
+    id_mesa INT,
+    CONSTRAINT FK_dim_prato_mesa FOREIGN KEY (id_mesa) REFERENCES dim_mesa(id_mesa)
+);
+
+CREATE TABLE dim_cliente (
+    id_cliente INT PRIMARY KEY UNIQUE,
+    email_cliente VARCHAR(255),
+    tel_cliente VARCHAR(11),
+    cpf_cliente VARCHAR(11),
+    nome_cliente VARCHAR(255),
+    id_mesa INT,
+    CONSTRAINT FK_dim_cliente_mesa FOREIGN KEY (id_mesa) REFERENCES dim_mesa(id_mesa)
+);
+
+CREATE TABLE dim_beneficio (
+    id_beneficiario INT PRIMARY KEY UNIQUE,
+    tel_beneficiario VARCHAR(11),
+    nome_beneficiario VARCHAR(255),
+    id_cliente INT,
+    id_empresa INT,
+    CONSTRAINT FK_dim_beneficio_cliente FOREIGN KEY (id_cliente) REFERENCES dim_cliente(id_cliente),
+    CONSTRAINT FK_dim_beneficio_empresa FOREIGN KEY (id_empresa) REFERENCES dim_empresa(id_empresa)
+);
+
+CREATE TABLE dim_empresa (
+    id_empresa INT PRIMARY KEY,
+    nome_empresa VARCHAR(255)
+);
